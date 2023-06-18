@@ -48,8 +48,9 @@ class Template {
     }
     const translations = TRANSLATIONS[language] || {};
     const configuration = client_config || {};
-    const prefix = request.url.split("/boards/")[0].substr(1);
-    const baseUrl = findBaseUrl(request) + (prefix ? prefix + "/" : "");
+    const prefix = request.url.split("/boards/")[0].substr(1)+"/wbo";
+    const baseUrl = findBaseUrl(request) + (prefix ? prefix : "");
+    //const baseUrl = "/wbo/";
     const moderator = isModerator;
     return { baseUrl, languages, language, translations, configuration, moderator };
   }
