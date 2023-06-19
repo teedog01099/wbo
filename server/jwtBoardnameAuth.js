@@ -44,6 +44,10 @@ function checkBoardnameInToken(url, boardNameIn) {
 }
 
 function parse_role(role) {
+
+
+
+
     let [_, role_name, board_name] = role.match(/^([^:]*):?(.*)$/);
     return {role_name, board_name}
 }
@@ -67,7 +71,13 @@ function roleInBoard(token, board = null) {
         var oneHasModerator = false;
 
         if (roles) {
+
+
+
             for (var line of roles) {
+
+                console.log("Role Line: " + line);
+
                 var role = parse_role(line);
 
                 if (role.board_name !== '') {
