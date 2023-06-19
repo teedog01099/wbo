@@ -76,7 +76,7 @@ function roleInBoard(token, board = null) {
 
             for (var line of roles) {
 
-                console.log("Role Line: " + line);
+                console.log("Role Line: " + line.toString());
 
                 var role = parse_role(line);
 
