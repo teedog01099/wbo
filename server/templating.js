@@ -20,9 +20,13 @@ handlebars.registerHelper({
 });
 
 function findBaseUrl(req) {
-  var proto =
+
+  /*var proto =
     req.headers["X-Forwarded-Proto"] ||
-    (req.connection.encrypted ? "https" : "http");
+    (req.connection.encrypted ? "https" : "http");*/
+
+  var proto =  "https";
+
   var host = req.headers["X-Forwarded-Host"] || req.headers.host;
   return proto + "://" + host;
 }
