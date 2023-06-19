@@ -56,6 +56,6 @@ module.exports = {
   STATSD_URL: process.env["STATSD_URL"],
 
   /** Secret key for jwt */
-  AUTH_SECRET_KEY: (process.env["AUTH_SECRET_KEY"] || ""),
+  AUTH_SECRET_KEY: (process.env["AUTH_SECRET_KEY"] || "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4NzE3MjYyOCwiaWF0IjoxNjg3MTcyNjI4fQ.HlDOr28mvM3fCCxdyWUBrDjT4kcJkKbfIglxxnvyQ6R98qyxMHoJEG_byF2kSrubme3ATQaY5AnqKyq56hH6OQ"),
 
 };
