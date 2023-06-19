@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{language}}">
+<html lang="{{language}}" data-baseUrl="{{baseUrl}}">
   <head>
     <meta charset="utf-8" />
     <title>WBO — {{translations.collaborative_whiteboard}}</title>
@@ -38,10 +38,11 @@
       </nav>
     </header>
 
+
     <main>
       <div id="description">
         <img
-          src="frontpage-illustration.svg"
+          src="{{baseUrl}}/frontpage-illustration.svg"
           alt="Public board illustration"
           with="700"
           height="560"

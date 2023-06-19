@@ -1,6 +1,10 @@
 function showRecentBoards() {
   var parent = document.getElementById("recent-boards");
   var ul = document.querySelector("#recent-boards ul");
+  var baseUrl = document.querySelector("html") ? document.querySelector("html").dataset['baseUrl']: "";
+
+
+
   ul && parent.removeChild(ul);
   parent.classList.add("hidden");
 
@@ -12,7 +16,7 @@ function showRecentBoards() {
   recentBoards.forEach(function(name) {
     var listItem = document.createElement("li");
     var link = document.createElement("a");
-    link.setAttribute("href", `/boards/${encodeURIComponent(name)}`);
+    link.setAttribute("href", baseUrl +`/boards/${encodeURIComponent(name)}`);
     link.textContent = name;
     listItem.appendChild(link);
     list.appendChild(listItem);
