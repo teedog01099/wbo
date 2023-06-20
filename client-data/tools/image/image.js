@@ -81,7 +81,7 @@
 		formData.append('token', Tools.token);
 
 		const xhr = new XMLHttpRequest();
-		xhr.open('POST', '/upload', true);
+		xhr.open('POST', Tools.server_config.STEM + '/upload', true);
 
 		// Set the authorization header
 		xhr.setRequestHeader('Authorization', `${Tools.token}`);
@@ -93,7 +93,7 @@
 				// File uploaded successfully
 				console.log('File uploaded!');
 
-				var baseUrl = window.location.protocol + "//" + window.location.host
+				var baseUrl = window.location.protocol + "//" + window.location.host + Tools.server_config.STEM
 
 				// Fetch the image path from server
 				var imagePath = baseUrl + xhr.responseText;

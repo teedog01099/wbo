@@ -12,7 +12,12 @@ module.exports = {
 
 
 
-  ENV: parseInt(process.env["PORT"]) == 5001 ? "PROD" : "DEV",
+  ENV: process.env["PROD"] == "1" ? "PROD" : "DEV",
+
+
+
+
+  STEM: process.env["PROD"] == "1" ? "/wbo" : "",
 
 
 
