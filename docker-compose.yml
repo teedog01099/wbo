@@ -2,9 +2,10 @@ version: '3'
 services:
   www:
     volumes:
-      - /opt/app/server-data:/opt/app/server-data
+      - /home/kalina/projects/wbo/server-data:/home/kalina/projects/wbo/server-data
     ports:
       - '80:80'
+      - '5005:5005'
     build:
       context: .
     restart: on-failure

@@ -19,13 +19,13 @@ handlebars.registerHelper({
   json: JSON.stringify.bind(JSON),
 });
 
-function findBaseUrl(req) {
+function findBaseUrl(req, env) {
 
   /*var proto =
     req.headers["X-Forwarded-Proto"] ||
     (req.connection.encrypted ? "https" : "http");*/
 
-  var proto =  "https";
+  var proto =  env == "PROD" ? "https" : "http";
 
   var host = req.headers["X-Forwarded-Host"] || req.headers.host;
   return proto + "://" + host;
@@ -52,9 +52,18 @@ class Template {
     }
     const translations = TRANSLATIONS[language] || {};
     const configuration = client_config || {};
-    const prefix = request.url.split("/boards/")[0].substr(1)+"/wbo";
-    const baseUrl = findBaseUrl(request) + (prefix ? prefix : "");
+
+    const env = configuration.ENV
+
+    const prefix = request.url.split("/boards/")[0].substr(1)+  (env == "PROD" ? "/wbo" : "");
+    const baseUrl = findBaseUrl(request, env) + (prefix ? prefix : "");
+
+    console.log("env: " + env)
+
     //const baseUrl = "/wbo/";
+
+
+
     const moderator = isModerator;
     return { baseUrl, languages, language, translations, configuration, moderator };
   }

@@ -34,10 +34,13 @@ const {roleInBoard} = require("./jwtBoardnameAuth");
  * @returns {boolean} - True if user is a moderator, else false
  * @throws {Error} - If no token is provided when it should be
  */
-function checkUserPermission(url) {
+function checkUserPermission(url, request) {
   var isModerator = false;
+
   if (config.AUTH_SECRET_KEY != "") {
-    var token = url.searchParams.get("token");
+    var token = request.headers.authorization || url.searchParams.get("token");
+
+
     if (token) {
       isModerator = roleInBoard(token) === "moderator";
     } else {

@@ -354,6 +354,15 @@ Tools.send = function (data, toolName) {
 Tools.drawAndSend = function (data, tool) {
 	if (tool == null) tool = Tools.curTool;
 	tool.draw(data, true);
+
+
+	if(tool.name == "Image"){
+
+		console.log("drawAndSend :: data: " + data)
+
+	}
+
+
 	Tools.send(data, tool.name);
 };
 

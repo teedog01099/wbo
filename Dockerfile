@@ -1,8 +1,8 @@
 FROM node:16-alpine
 
-WORKDIR /opt/app
+WORKDIR /home/kalina/projects/wbo
 
-RUN chown -R 1000:1000 /opt/app
+RUN chown -R 1000:1000 /home/kalina/projects/wbo
 
 # Allow node to bind to port 80
 RUN apk update && apk add libcap
@@ -17,6 +17,6 @@ COPY --chown=1000:1000 . .
 ENV PORT=80
 EXPOSE 80
 
-VOLUME /opt/app/server-data
+VOLUME /home/kalina/projects/wbo/server-data
 
 CMD ["/usr/local/bin/node", "server/server.js"]

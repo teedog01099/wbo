@@ -53,6 +53,8 @@
 						<span class="colorPresetButton"></span>
 					</span>
 				</li>
+
+
 				<li class="tool" tabindex="-1"
 					title="{{translations.size}} ({{translations.keyboard_shortcut}}: alt + {{translations.mousewheel}})">
 					<img class="tool-icon" width="60" height="60" src="icon-size.svg" alt="size" />
@@ -61,6 +63,13 @@
 						<input type="range" id="chooseSize" value="4" min="1" max="50" step="1" class="rangeChooser" />
 					</label>
 				</li>
+
+				<li class="tool" style="display: none" tabindex="-1">
+
+						<input type="file" id="filePicker">
+
+				</li>
+
 				<li class="tool" tabindex="-1">
 					<span class="tool-icon">
 						<svg viewBox="0 0 8 8">
@@ -79,6 +88,9 @@
 							class="rangeChooser" />
 					</label>
 				</li>
+
+
+
 			</ul>
 		</div>
 	</div>
@@ -95,6 +107,7 @@
 	<script src="{{baseUrl}}/tools/cursor/cursor.js"></script>
 	<script src="{{baseUrl}}/tools/line/line.js"></script>
 	<script src="{{baseUrl}}/tools/rect/rect.js"></script>
+	<script src="{{baseUrl}}/tools/image/image.js"></script>
 	<script src="{{baseUrl}}/tools/ellipse/ellipse.js"></script>
 	<script src="{{baseUrl}}/tools/text/text.js"></script>
 	<script src="{{baseUrl}}/tools/eraser/eraser.js"></script>

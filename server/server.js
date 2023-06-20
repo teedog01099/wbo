@@ -25,7 +25,60 @@ if (parseFloat(process.versions.node) < MIN_NODE_VERSION) {
   );
 }
 
+
+var dest = config.HISTORY_DIR;
+
+
 check_output_directory(config.HISTORY_DIR);
+
+
+// Add the following lines to import the 'multer' package
+var multer = require("multer");
+
+var mime = require('mime');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    //var dest = config.HISTORY_DIR
+
+
+
+    console.log("Set the destination folder for uploaded files: " + dest)
+    cb(null, dest);
+  },
+  filename: function (req, file, cb) {
+    console.log("filename: " + file.originalname)
+
+    console.log("file:", file);
+    cb(null, Date.now() + '-' + file.originalname);
+
+  },
+});
+
+var fileFilter = function (req, file, cb) {
+  console.log("fileFilter")
+  var allowedMimes = ["image/jpeg", "image/png", "image/gif", "image/svg+xml"];
+
+  if (allowedMimes.includes(file.mimetype)) {
+    //console.log("we allow file")
+    cb(null, true);
+  } else {
+    //console.log("we dont allow file")
+    cb(new Error("Invalid file type. Only image files are allowed."));
+  }
+};
+
+
+var upload = multer({ storage: storage, fileFilter: fileFilter,  limits: { fileSize: 1024 * 1024 * 15 } });
+
+console.log("CWD:", process.cwd())
+
+var testfile = dest+'/test.txt'
+
+console.log("writing testfile:", testfile)
+
+fs.writeFileSync(testfile, 'Hello, World!');
+
 
 sockets.start(app);
 
@@ -107,15 +160,71 @@ function handleRequest(request, response) {
 
   if (parts[0] === "") parts.shift();
 
-  var fileExt = path.extname(parsedUrl.pathname);
+  var fileExt = path.extname(parsedUrl.pathname.toLowerCase());
   var staticResources = ['.js','.css', '.svg', '.ico', '.png', '.jpg', 'gif'];
   // If we're not being asked for a file, then we should check permissions.
   var isModerator = false;
   if(!staticResources.includes(fileExt)) {
-    isModerator = jwtauth.checkUserPermission(parsedUrl);
+    isModerator = jwtauth.checkUserPermission(parsedUrl, request);
   }
 
   switch (parts[0]) {
+
+    case "uploads":
+      var filename = parts[1]; // Get the filename from the URL
+      var filepath = path.join(config.HISTORY_DIR, filename); // Create a file path
+
+      console.log("we access file from: ", filepath)
+
+      fs.readFile(filepath, function(err, data) {
+        if (err) {
+          console.error(err);
+          response.writeHead(500, { "Content-Type": "text/plain" });
+          response.end("Error reading file.");
+          return;
+        }
+
+        var mimetype = mime.getType(filepath); // Get the MIME type of the file
+        response.writeHead(200, { "Content-Type": mimetype });
+        response.end(data);
+      });
+      break;
+
+    case "upload":
+
+      if (request.method === "POST") {
+
+
+        console.log("we upload file as POST")
+
+        // Use the `upload` middleware to handle the file upload
+        upload.single("file")(request, response, function (err) {
+          if (err) {
+
+            console.error(err);
+
+
+            response.writeHead(500, { "Content-Type": "text/plain" });
+            response.end("Error uploading file.");
+            return;
+          }
+
+          console.log("request.file:", request.file);
+
+
+          response.writeHead(200, { "Content-Type": "text/plain" });
+          //response.end("File uploaded successfully.");
+
+          response.end("/uploads/" + request.file.filename);
+
+        });
+      } else {
+        response.writeHead(404, { "Content-Type": "text/plain" });
+        response.end("Not found.");
+      }
+      break;
+
+
     case "boards":
       // "boards" refers to the root directory
       if (parts.length === 1) {

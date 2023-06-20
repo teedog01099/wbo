@@ -10,6 +10,14 @@ module.exports = {
         '127.0.0.1' **/
   HOST: process.env["HOST"] || undefined,
 
+
+
+  ENV: parseInt(process.env["PORT"]) == 5001 ? "PROD" : "DEV",
+
+
+
+
+
   /** Path to the directory where boards will be saved by default */
   HISTORY_DIR:
     process.env["WBO_HISTORY_DIR"] || path.join(app_root, "server-data"),
