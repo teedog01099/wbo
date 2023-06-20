@@ -54,11 +54,13 @@ class Template {
     const configuration = client_config || {};
 
     const env = configuration.ENV
+    const stem = configuration.STEM
 
     const prefix = request.url.split("/boards/")[0].substr(1)+  (env == "PROD" ? "/wbo" : "");
     const baseUrl = findBaseUrl(request, env) + (prefix ? prefix : "");
 
     console.log("env: " + env)
+    console.log("stem: " + stem)
 
     //const baseUrl = "/wbo/";
 
